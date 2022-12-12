@@ -1,7 +1,6 @@
 
 import React, { useState} from 'react';
-import { useDispatch } from 'react-redux';
-import { addContacts } from 'Redux/Contacts/slice';
+import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import {
   InputForm,
@@ -12,11 +11,12 @@ import {
   BtnAdd,
   Span,
 } from './Form.styled';
-
+import { addContact } from 'Redux/Contacts/operations';
 
 const Form = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
+   const contacts = useSelector(state => state.contacts.contacts.items);
  const dispatch = useDispatch();
 
   const handleChange = e => {
@@ -26,8 +26,8 @@ const Form = () => {
       case "name" :
          setName(value);
         break;
-      case "number":
-        setNumber(value);
+      case "phone":
+        setPhone(value);
         break;
       default: console.log('pls, fill correct data');
         break;
@@ -36,9 +36,12 @@ const Form = () => {
 
   const handelSubmit = e => {
     e.preventDefault();
-  dispatch(addContacts({ name, number, id: nanoid() })); 
+     if (contacts.some((contact) => contact.name.toLowerCase() === name.toLowerCase())) {
+       return alert(name + ' is already in contacts');
+     }
+    dispatch(addContact({ name, phone, id: nanoid() }));
     setName('');
-     setNumber('');
+    setPhone('');
   };
 
     return (
@@ -60,8 +63,8 @@ const Form = () => {
             <Span>Number</Span>
             <InputNumber
               type="tel"
-              name="number"
-              value={number}
+              name="phone"
+              value={phone}
               onChange={handleChange}
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"

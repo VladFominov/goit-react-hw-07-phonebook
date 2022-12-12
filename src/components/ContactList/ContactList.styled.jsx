@@ -6,6 +6,9 @@ export const Li = styled.li`
   justify-content: space-between;
   margin-bottom: 10px;
   font-style: italic;
+  &::first-letter {
+    text-transform: uppercase;
+  }
 `;
 
 export const BtnOnDelete = styled.button`

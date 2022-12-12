@@ -3,18 +3,20 @@ import Form from './Form/Form';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 // import { nanoid } from 'nanoid';
-import {  useSelector } from 'react-redux';
+import {  useDispatch } from 'react-redux';
+import { fetchContacts } from 'Redux/Contacts/operations';
 
 
 export const App = () => {
+
+  // const contacts = useSelector(state => state.contacts.contacts.items);
+
+  const dispatch = useDispatch();
   
-
-  const contacts = useSelector(state => state.contacts.contacts);
- 
-
   useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+    dispatch(fetchContacts());
+   }, [dispatch]);
+ 
 
   return (
     <div

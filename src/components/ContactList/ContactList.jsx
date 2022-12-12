@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContacts } from 'Redux/Contacts/slice';
+import { deleteContact } from 'Redux/Contacts/operations';
 
 import { Li, BtnOnDelete } from './ContactList.styled';
 
 const ContactList = () => {
-  const contacts = useSelector(state => state.contacts.contacts);
+  const contacts = useSelector(state => state.contacts.contacts.items);
   const filter = useSelector(state => state.filter.filter);
   const dispatch = useDispatch();
   const filteredContact = () => {
@@ -14,9 +14,9 @@ const ContactList = () => {
     });
   };
 
-  const onDelete = id => {
+  const onDelete = (id) => {
     const contactId = id;
-    dispatch(deleteContacts(contactId));
+    dispatch(deleteContact(contactId));
   };
   return (
     <ul>
