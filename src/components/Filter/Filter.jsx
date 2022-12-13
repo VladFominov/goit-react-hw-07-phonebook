@@ -6,8 +6,7 @@ import { FilterContainer, Input } from './Filter.styled';
 
 const Filter = () => {
   const filter = useSelector(state => state.filter.filter);
-  console.log(filter);
-
+  
   const dispatch = useDispatch();
 
   const handelFilterChange = e => {

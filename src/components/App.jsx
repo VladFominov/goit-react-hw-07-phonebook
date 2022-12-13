@@ -2,14 +2,18 @@ import React, { useEffect } from 'react';
 import Form from './Form/Form';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
+
 // import { nanoid } from 'nanoid';
-import {  useDispatch } from 'react-redux';
+import {  useDispatch, useSelector } from 'react-redux';
 import { fetchContacts } from 'Redux/Contacts/operations';
 
+import BorderExample from './Spiner/Spiner';
 
 export const App = () => {
 
-  // const contacts = useSelector(state => state.contacts.contacts.items);
+  const { isloading } = useSelector(
+    state => state.contacts.contacts.items
+  );
 
   const dispatch = useDispatch();
   
@@ -31,10 +35,11 @@ export const App = () => {
       }}
     >
       <h1>Phonebook</h1>
-
-      <Form  />
+      <Form />
       <h2>Contacts</h2>
       <Filter />
+      {isloading && <BorderExample />}
+
       <ContactList />
     </div>
   );
